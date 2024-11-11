@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.Discord" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Expressions" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modix.Bot\Modix.Bot.csproj" />
+    <ProjectReference Include="..\Modix.Common\Modix.Common.csproj" />
+    <ProjectReference Include="..\Modix.Data\Modix.Data.csproj" />
+    <ProjectReference Include="..\Modix.Services\Modix.Services.csproj" />
+    <ProjectReference Include="..\Modix.Web\Modix.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="developmentSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
