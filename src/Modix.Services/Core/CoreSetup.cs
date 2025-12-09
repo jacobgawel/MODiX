@@ -22,9 +22,6 @@ namespace Modix.Services.Core
             => services
                 .AddSingleton<IBehavior, DiscordSocketListeningBehavior>()
                 .AddScoped<IAuthorizationService, AuthorizationService>()
-                .AddScoped<AuthorizationAutoConfigBehavior>()
-                .AddScoped<INotificationHandler<GuildAvailableNotification>>(x => x.GetService<AuthorizationAutoConfigBehavior>())
-                .AddScoped<INotificationHandler<JoinedGuildNotification>>(x => x.GetService<AuthorizationAutoConfigBehavior>())
                 .AddScoped<IChannelService, ChannelService>()
                 .AddScoped<ChannelTrackingBehavior>()
                 .AddScoped<INotificationHandler<ChannelCreatedNotification>>(x => x.GetService<ChannelTrackingBehavior>())
@@ -35,11 +32,10 @@ namespace Modix.Services.Core
                 .AddScoped<IGuildChannelRepository, GuildChannelRepository>()
                 .AddScoped<IGuildRoleRepository, GuildRoleRepository>()
                 .AddScoped<IGuildUserRepository, GuildUserRepository>()
-                .AddScoped<IDesignatedChannelService, DesignatedChannelService>()
+                .AddScoped<DesignatedChannelService>()
                 .AddScoped<IDesignatedRoleService, DesignatedRoleService>()
                 .AddScoped<IClaimMappingRepository, ClaimMappingRepository>()
                 .AddScoped<IConfigurationActionRepository, ConfigurationActionRepository>()
-                .AddScoped<IDesignatedChannelMappingRepository, DesignatedChannelMappingRepository>()
                 .AddScoped<IDesignatedRoleMappingRepository, DesignatedRoleMappingRepository>()
                 .AddScoped<IMessageRepository, MessageRepository>()
                 .AddScoped<IMessageService, MessageService>();

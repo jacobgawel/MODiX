@@ -4,10 +4,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Humanizer.Core" />
+    <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Newtonsoft.Json" />
     <PackageReference Include="LZStringCSharp" />
+    <PackageReference Include="protobuf-net" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Modix.Analyzers\Modix.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" SetTargetFramework="TargetFramework=netstandard2.0" />

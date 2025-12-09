@@ -24,10 +24,10 @@ namespace Modix.Modules
     [ModuleHelp("Infractions", "Provides commands for working with infractions.")]
     public class InfractionModule : InteractionModuleBase
     {
-        private readonly IModerationService _moderationService;
+        private readonly ModerationService _moderationService;
         private readonly ModixConfig _config;
 
-        public InfractionModule(IModerationService moderationService, IOptions<ModixConfig> config)
+        public InfractionModule(ModerationService moderationService, IOptions<ModixConfig> config)
         {
             _moderationService = moderationService;
             _config = config.Value;
@@ -38,14 +38,14 @@ namespace Modix.Modules
         // Discord doesn't currently give us many good options for default permissions.
         // Would be much better if the bot could set role-based defaults instead.
         // Goal is to at least make this not visible to ordinary users and visible to Associate+.
-        [DefaultMemberPermissions((GuildPermission)(1UL << 43))] // Currently undocumented, Create Expressions
+        [DefaultMemberPermissions(GuildPermission.ViewAuditLog)]
         public async Task SearchAsync(IMessage message)
             => await SearchAsync(message.Author);
 
         [SlashCommand("infractions", "Displays all non-deleted infractions for a user.")]
         [UserCommand("Infractions")]
         [RequireClaims(AuthorizationClaim.ModerationRead)]
-        [DefaultMemberPermissions((GuildPermission)(1UL << 43))] // Currently undocumented, Create Expressions
+        [DefaultMemberPermissions(GuildPermission.ViewAuditLog)]
         public async Task SearchAsync(
             [Summary(description: "The user whose infractions are to be displayed.")]
                 IUser? user = null)
@@ -86,7 +86,6 @@ namespace Modix.Modules
 
             var counts = await _moderationService.GetInfractionCountsForUserAsync(user.Id);
 
-            // https://modix.gg/infractions?subject=12345
             var url = new UriBuilder(_config.WebsiteBaseUrl)
             {
                 Path = "/infractions",
@@ -134,7 +133,7 @@ namespace Modix.Modules
 
         [SlashCommand("infraction-update", "Updates an infraction by ID, overwriting the existing reason.")]
         [RequireAnyClaim(AuthorizationClaim.ModerationUpdateInfraction, AuthorizationClaim.ModerationNote, AuthorizationClaim.ModerationWarn, AuthorizationClaim.ModerationMute, AuthorizationClaim.ModerationBan)]
-        [DefaultMemberPermissions((GuildPermission)(1UL << 43))] // Currently undocumented, Create Expressions
+        [DefaultMemberPermissions(GuildPermission.ViewAuditLog)]
         public async Task UpdateAsync(
             [Summary(description: "The ID value of the infraction to be update.")]
                     long infractionId,

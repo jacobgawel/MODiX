@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Modix.Bot.Extensions;
+using Modix.Bot.Responders.AutoRemoveMessages;
 using Modix.Common.Extensions;
 using Modix.Data.Models;
 using Modix.Data.Models.Core;
@@ -36,31 +37,30 @@ namespace Modix.Modules
     {
         private readonly ILogger<UserInfoModule> _log;
         private readonly IUserService _userService;
-        private readonly IModerationService _moderationService;
+        private readonly ModerationService _moderationService;
         private readonly IAuthorizationService _authorizationService;
         private readonly IMessageRepository _messageRepository;
         private readonly IEmojiRepository _emojiRepository;
         private readonly IPromotionsService _promotionsService;
         private readonly IImageService _imageService;
         private readonly ModixConfig _config;
-        private readonly IAutoRemoveMessageService _autoRemoveMessageService;
+        private readonly AutoRemoveMessageService _autoRemoveMessageService;
 
-        //optimization: UtcNow is slow and the module is created per-request
         private readonly DateTime _utcNow = DateTime.UtcNow;
 
         public UserInfoModule(
             ILogger<UserInfoModule> logger,
             IUserService userService,
-            IModerationService moderationService,
+            ModerationService moderationService,
             IAuthorizationService authorizationService,
             IMessageRepository messageRepository,
             IEmojiRepository emojiRepository,
             IPromotionsService promotionsService,
             IImageService imageService,
             IOptions<ModixConfig> config,
-            IAutoRemoveMessageService autoRemoveMessageService)
+            AutoRemoveMessageService autoRemoveMessageService)
         {
-            _log = logger ?? new NullLogger<UserInfoModule>();
+            _log = logger;
             _userService = userService;
             _moderationService = moderationService;
             _authorizationService = authorizationService;
